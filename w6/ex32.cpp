@@ -17,6 +17,7 @@ int main() {
         printf("\ngive me [NUMBER1] [OPERATOR] [NUMBER2]\n");
         printf("for exit, enter 0 0 0\n");
         printf("for hint, enter 0 80 0\n");
+        printf("your input >> ");
         scanf("%d%d%d", &num1, &opr, &num2);
 
         if ((num1 == 0)&&(opr == 0)&&(num2 == 0)) {break;}
@@ -39,13 +40,27 @@ int main() {
             }
         }
 
-        if (opr == 1) {printf("%d + %d = %d\n",num1,num2,num1+num2);}
-        else if (opr == 2) {printf("%d - %d = %d\n",num1,num2,num1-num2);}
-        else if (opr == 3) {printf("%d * %d = %d\n",num1,num2,num1*num2);}
-        else if (opr == 4) {printf("%d / %d = %d\n",num1,num2,num1/num2);}
-        else if (opr == 5) {printf("%d %% %d = %d\n",num1,num2,num1%num2);}
-        else {printf("oops wrong operator:%d", opr);}
+        switch (opr) {
+            case 1:
+                printf("%d + %d = %d\n",num1,num2,num1+num2);
+                break;
+            case 2:
+                printf("%d - %d = %d\n",num1,num2,num1-num2);
+                break;
+            case 3:
+                printf("%d * %d = %d\n",num1,num2,num1*num2);
+                break;
+            case 4:
+                printf("%d / %d = %d\n",num1,num2,num1/num2);
+                break;
+            case 5:
+                printf("%d %% %d = %d\n",num1,num2,num1%num2);
+                break;
+            default:
+                printf("oops wrong operator:%d", opr);
+                break;
+        }
 
-        printf("\nNEXT ROUND!!\n");
+        printf("\nNEXT ROUND!!");
     }
 }
