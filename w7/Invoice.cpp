@@ -24,12 +24,13 @@ int main() {
             while(1) {
                 if((input%digits == invoice[2]%digits)||(input%digits == invoice[3]%digits)||(input%digits == invoice[4]%digits)) {
                     digits = digits * 10;
+                    if(digits>=1000000000) {break;}
                 } else {
                     break;
                 }
             }
-            if(log(digits) > 3) {
-                level_cnt = log(digits) - 3;
+            if(log10(digits) > 3) {
+                level_cnt = log10(digits) - 4;
                 printf("Congrats!!, you won %d!\n", level[level_cnt]);
             }
             
@@ -38,3 +39,5 @@ int main() {
         scanf("%d", &input);
     }
 }
+
+//38039158 08276859 32110911 84289408 13446901
