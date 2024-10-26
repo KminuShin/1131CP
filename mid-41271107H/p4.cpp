@@ -2,12 +2,13 @@
 
 int main() {
     int t, n;
+
+    scanf("%d%d", &t, &n);
+    
     int votes[n]{0};
     int score[n]{0};
     int highvotes;
     int champ = 0;
-
-    scanf("%d%d", &t, &n);
 
     for (int i = 0;i < t;i++) {
         highvotes = 0;

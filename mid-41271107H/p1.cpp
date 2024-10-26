@@ -14,11 +14,13 @@ int main() {
             }
 
             //print num
-            for (int k = 0;k < j;k++) {
-                printf("%d", );
+            for (int k = 0;k < j;k+=2) {
+                printf("%d", j+1);
             }
-        }
 
+            
+        }
+        printf("\n");
 
     }
 }
