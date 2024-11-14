@@ -67,7 +67,7 @@ void playerAttack(int choice, int monsterCNT, int monsterDefaultHP, int monsterH
         for (int i=0;i < monsterCNT;i++) {
             if (monsterHP[i] > 0) {
                 monsterHP[i] -= atkG;
-                printf("you attacked Monster(%d), %d points!\n", i, atkG);
+                printf("you attacked Monster(%d), %d points!\n", i+1, atkG);
             }
         }
     }
@@ -107,7 +107,7 @@ void enemyTurn(int monsterCNT, int monsterDefaultHP, int monsterHP[], int atkS, 
             if (monsterHP[j] <= 3 && monsterHP[j] > 0) {
                 monsterHP[j] += 1;
                 attackCondition = 0;
-                printf("Monster(%d) healed Monster(%d)\n", i, j);
+                printf("Monster(%d) healed Monster(%d)\n", i+1, j+1);
                 break;
             }
         }
@@ -118,7 +118,7 @@ void enemyTurn(int monsterCNT, int monsterDefaultHP, int monsterHP[], int atkS, 
                 eCrit = 3;
             }
             (*playerHealth) -= 1*eCrit;
-            printf("Monster(%d) attacked you, %d points!\n", i, 1*eCrit);
+            printf("Monster(%d) attacked you, %d points!\n", i+1, 1*eCrit);
         }
     }
 
