@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cstdlib>
+#include <time.h>
 
 void refreshScreen(int monsterCNT, int monsterDefaultHP, int monsterHP[], int playerHealth) {
     // clear
@@ -28,7 +29,7 @@ void refreshScreen(int monsterCNT, int monsterDefaultHP, int monsterHP[], int pl
     
     printf("Player ");
     if(playerHealth > 0) {
-        printf("%d ", playerHealth);
+        printf("(%d) ", playerHealth);
         for (int j=0;j<playerHealth;j++) {
             printf("*");
         }
@@ -48,9 +49,14 @@ void playerAttack(int choice, int monsterCNT, int monsterDefaultHP, int monsterH
         printf("which monster do you want to attack? ...> ");
         scanf("%d", &target);
         if (target <= monsterCNT) {
-            monsterHP[target-1] -= atkS;
-            printf("\n");
-            printf("you attacked Monster(%d), %d points!\n", target, atkS);
+            if (rand()%10 > 1) {
+                monsterHP[target-1] -= atkS;
+                printf("\n");
+                printf("you attacked Monster(%d), %d points!\n", target, atkS);
+            } else {
+                printf("\nMonster(%d) dodged! lol\n", target);
+            }
+            
         } else {
             refreshScreen(monsterCNT, monsterDefaultHP, monsterHP, playerHealth);
             printf("No such target: %d\n", target);
@@ -90,9 +96,9 @@ void enemyHeal() {
 }
 */
 
-void enemyTurn(int monsterCNT, int monsterDefaultHP, int monsterHP[], int atkS, int atkG, int playerHealth) {
+void enemyTurn(int monsterCNT, int monsterDefaultHP, int monsterHP[], int atkS, int atkG, int *playerHealth) {
     // Check survival and health
-    int attackCondition;
+    int attackCondition, eCrit;
     for (int i=0;i < monsterCNT;i++) {
         attackCondition = 0;
         if (monsterHP[i] <= 0) continue;
@@ -101,13 +107,18 @@ void enemyTurn(int monsterCNT, int monsterDefaultHP, int monsterHP[], int atkS, 
             if (monsterHP[j] <= 3 && monsterHP[j] > 0) {
                 monsterHP[j] += 1;
                 attackCondition = 0;
-                printf("Monster(%d) healed monster(%d)\n", i, j);
+                printf("Monster(%d) healed Monster(%d)\n", i, j);
                 break;
             }
         }
         if (attackCondition >= monsterCNT) {
-            playerHealth -= 1;
-            printf("Monster(%d) attacked you, your health is %d\n", i, playerHealth);
+            eCrit = 1;
+            if (rand()%10 == 0) {
+                printf("crit!! ");
+                eCrit = 3;
+            }
+            (*playerHealth) -= 1*eCrit;
+            printf("Monster(%d) attacked you, %d points!\n", i, 1*eCrit);
         }
     }
 
@@ -117,6 +128,8 @@ void enemyTurn(int monsterCNT, int monsterDefaultHP, int monsterHP[], int atkS, 
 }
 
 int main() {
+    srand(time(0));
+
     // Disable input buffering, gemini told me this can let terminal show user input but it doesn't work wtf
     // I didn't even use anything like getchar() whyyyyyyyyyy
     // I can't finish this I'm so sad
@@ -148,11 +161,15 @@ int main() {
         playerTurn(monsterCNT, monsterDefaultHP, monsterHP, atkS, atkG, playerHealth);
 
         // monster's turn
-        enemyTurn(monsterCNT, monsterDefaultHP, monsterHP, atkS, atkG, playerHealth);
+        // chatGPT told me that I should pass playerHealth using pointer so I did it
+        // but how did I passed monsterHP??
+        // I don't understand
+        // howwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+        enemyTurn(monsterCNT, monsterDefaultHP, monsterHP, atkS, atkG, &playerHealth);
     
         printf("press ENTER to continue");
         getchar();
-        getchar();
+        getchar(); // yep one getchar() doesn't work so I use two
 
         // player die check
         if (playerHealth <= 0) {
