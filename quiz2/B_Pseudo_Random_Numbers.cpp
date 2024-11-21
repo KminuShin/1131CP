@@ -26,7 +26,7 @@ int main()
             printf("@%d next = %d\n", count, next);
             if (count > 500) {break;}
             */
-            
+
         } while (next != l);
         printf("Case %d: %d\n", casecount, count);
     }
